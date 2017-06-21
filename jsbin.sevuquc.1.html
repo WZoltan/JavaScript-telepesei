@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2017 by WZoltan (http://jsbin.com/sevuquc/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JavaScript telepesei</title>
+</head>
+<body>
+<canvas id="myCanvas" height=300 width=400 style="border: 1px solid black;"></canvas>
+<script id="jsbin-javascript">
+var c = document.getElementById('myCanvas').getContext('2d');
+
+var ch = c.canvas.height;
+var cw = c.canvas.width;
+
+function toRad(angle) {
+  return angle * (Math.PI / 180);
+}
+function points(r, step, startAngle) {
+  startAngle = startAngle || -90;
+  return [r*Math.sin(toRad(startAngle+step*60)), r*Math.cos(toRad(startAngle+step*60))];
+}
+
+function hexagon(x, y, r, filled) {
+  var color = 'orange';
+  filled = filled || false;
+
+
+c.beginPath();
+  for (var i = 0; i <= 6; i++) {
+    c.lineTo(x+points(r,i)[0],y+points(r,i)[1]);
+  }
+if (filled) {
+    c.fillStyle = color;
+    c.fill();
+  }
+c.strokeStyle = color;
+  c.stroke();
+}
+
+hexagon(cw/2, ch/2, 50);
+
+for (var i = 0; i < 6; i++) {
+  if (i === 5) var filled = true;
+  hexagon(cw/2-points(100,i,300)[0], ch/2-points(100,i,300)[1], 50, filled);
+}
+
+</script>
+</body>
+</html>
